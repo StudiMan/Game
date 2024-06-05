@@ -1,6 +1,7 @@
 #include <SFML/Graphics.hpp>
 #include <ctime>
 #include <vector>
+#include <SFML/Audio.hpp>
 
 using namespace sf;
 using namespace std;
@@ -50,6 +51,11 @@ int main()
     cur.setColor(Color(255, 0, 0));
 
     vector<Rocket> rockets(1);
+
+    Music music;
+    music.openFromFile("Music/prob.mp3");
+    music.setLoop(true);
+    music.play();
 
     Clock global_time;
 
