@@ -1,7 +1,7 @@
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 #include <ctime>
 #include <vector>
-#include <SFML/Audio.hpp>
 
 using namespace sf;
 using namespace std;
@@ -57,6 +57,15 @@ int main()
     music.setLoop(true);
     music.play();
 
+    Font font;
+    font.loadFromFile("Fonts/for_game.ttf");
+    Text score;
+    score.setFont(font);
+    score.setFillColor(Color(100, 100, 100));
+    score.setPosition(15, 5);
+
+    int num_rockets = 100;
+
     Clock global_time;
 
     while (window.isOpen())
@@ -82,6 +91,7 @@ int main()
                     && (rockets[i].place.first + rockets[i].size.first) >= mouse_place.first && (rockets[i].place.second + rockets[i].size.second) >= mouse_place.second)
                 {
                     rockets.erase(rockets.begin() + i);
+                    num_rockets--;
                     break;
                 }
             }
@@ -107,6 +117,10 @@ int main()
             rockets.push_back(Rocket());
             global_time.restart();
         }
+
+        string for_score = "Rockets last: " + to_string(num_rockets);
+        score.setString(for_score);
+        window.draw(score);
 
         window.draw(cur);
         window.display();
