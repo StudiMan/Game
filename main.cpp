@@ -58,10 +58,24 @@ int main()
                 window.close();
         }
 
+        if (Mouse::isButtonPressed(Mouse::Left))
+        {
+            pair<unsigned, unsigned> mouse_place(Mouse::getPosition(window).x, Mouse::getPosition(window).y);
+            for (int i = 0; i < rockets.size(); ++i)
+            {
+                if (rockets[i].place.first <= mouse_place.first && rockets[i].place.second <= mouse_place.second
+                    && (rockets[i].place.first + rockets[i].size.first) >= mouse_place.first && (rockets[i].place.second + rockets[i].size.second) >= mouse_place.second)
+                {
+                    rockets.erase(rockets.begin() + i);
+                    break;
+                }
+            }
+        }
 
         Texture t_rocket;
         t_rocket.loadFromFile("Images/missile00.png");
         Sprite rocket(t_rocket);
+        rocket.setTextureRect(IntRect(10, 3, 12, 23));
         for (int i = 0; i < rockets.size(); ++i)
         {
             rocket.setScale(rockets[i].size.first / 12.0, rockets[i].size.second / 23.0);
