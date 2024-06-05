@@ -42,6 +42,13 @@ int main()
     t_nebo.loadFromImage(background_image);
     Sprite nebo(t_nebo);
 
+    window.setMouseCursorVisible(false);
+    Texture t_cur;
+    t_cur.loadFromFile("Images/aim2.png");
+    Sprite cur(t_cur);
+    cur.setScale(0.05, 0.05);
+    cur.setColor(Color(255, 0, 0));
+
     vector<Rocket> rockets(1);
 
     Clock global_time;
@@ -50,6 +57,8 @@ int main()
     {
         window.clear();
         window.draw(nebo);
+
+        cur.setPosition(Mouse::getPosition().x - 424, Mouse::getPosition().y - 335);
 
         sf::Event event;
         while (window.pollEvent(event))
@@ -92,6 +101,8 @@ int main()
             rockets.push_back(Rocket());
             global_time.restart();
         }
+
+        window.draw(cur);
         window.display();
     }
 
